@@ -1,0 +1,32 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MyServiceService WSDL service -->
+
+  <service name="MyService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://service.web.com.mywebservice1"/>
+      <parameter name="wsdlServiceElement" value="MyServiceService"/>
+      <parameter name="schemaQualified" value="http://service.web.com.mywebservice1"/>
+      <parameter name="wsdlServicePort" value="MyService"/>
+      <parameter name="className" value="mywebservice1.com.web.service.MyServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="MyService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addValue" qname="operNS:addValue" xmlns:operNS="http://service.web.com.mywebservice1" returnQName="retNS:addValueReturn" xmlns:retNS="http://service.web.com.mywebservice1" returnType="rtns:float" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:value" xmlns:pns="http://service.web.com.mywebservice1" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="subtractValue" qname="operNS:subtractValue" xmlns:operNS="http://service.web.com.mywebservice1" returnQName="retNS:subtractValueReturn" xmlns:retNS="http://service.web.com.mywebservice1" returnType="rtns:float" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:value" xmlns:pns="http://service.web.com.mywebservice1" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="subtractValue addValue"/>
+
+  </service>
+</deployment>
